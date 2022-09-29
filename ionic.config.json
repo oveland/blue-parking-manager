@@ -1,0 +1,7 @@
+{
+  "name": "pcw-parking-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
