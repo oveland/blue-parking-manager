@@ -65,9 +65,7 @@ async function listReservations(params: any) {
         AND datetime BETWEEN '${today} 00:00:00' AND '${tomorrow} 00:00:00'
     `);
 
-    return [];
-
-    //return Array.from(list ? list : [], (r) => format(r));
+    return Array.from(list ? list : [], (r) => format(r));
 }
 
 async function loadPhoto(uid:string) {
@@ -80,28 +78,28 @@ async function loadPhoto(uid:string) {
 function createReservation(data: any) {
     data.uid = makeUid();
 
-    /*Database.insert(`
+    Database.insert(`
         INSERT INTO reservations (uid, datetime, plate, zone, rotation_check, vehicle_type, parking_type, parking_zone, latitude, longitude, status_local, photo)
         VALUES ('${data.uid}', '${data.datetime}','${data.plate}', ${data.zone}, ${data.rotationCheck?.id}, ${data.vehicleType?.id}, ${data.parkingType}, ${data.parkingZone}, ${data.latitude}, ${data.longitude}, ${CONFIG.STATUS.LOCAL.PROCESSING}, '${data.photo}');
-    `).then();*/
+    `).then();
 
     return format(data);
 }
 
 async function setReservationStatusLocal(uid: any, status: number) {
     if (!uid) return null;
-    //await Database.statement(`UPDATE reservations SET status_local = ${status} WHERE uid = '${uid}'`);
+    await Database.statement(`UPDATE reservations SET status_local = ${status} WHERE uid = '${uid}'`);
 }
 
 async function setReservationPlate(uid: any, plate: string) {
     if (!uid) return null;
     const statusLocal = plate ? CONFIG.STATUS.LOCAL.PROCESSING : CONFIG.STATUS.LOCAL.NO_PLATE;
-    //await Database.statement(`UPDATE reservations SET plate = '${plate ? plate : 'No reconocido'}', status_local = ${statusLocal} WHERE uid = '${uid}'`);
+    await Database.statement(`UPDATE reservations SET plate = '${plate ? plate : 'No reconocido'}', status_local = ${statusLocal} WHERE uid = '${uid}'`);
 }
 
 async function setReservationLocation(uid: any, latitude: any, longitude: any) {
     if (!uid || !latitude || !longitude) return null;
-    //await Database.statement(`UPDATE reservations SET latitude = ${latitude}, longitude = ${longitude} WHERE uid = '${uid}'`);
+    await Database.statement(`UPDATE reservations SET latitude = ${latitude}, longitude = ${longitude} WHERE uid = '${uid}'`);
 }
 
 function makeUid() {

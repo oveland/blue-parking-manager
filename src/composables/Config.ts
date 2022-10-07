@@ -1,5 +1,5 @@
-const DOMAIN = 'https://rotacion.pcwserviciosgps.com';
-// const DOMAIN = `http://192.168.100.100:2001`;
+// const DOMAIN = 'https://rotacion.pcwserviciosgps.com';
+const DOMAIN = `http://192.168.100.100:2001`;
 
 const API_URL = `${DOMAIN}/api/v1/app`;
 

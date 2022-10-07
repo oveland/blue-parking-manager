@@ -133,6 +133,12 @@ export default defineComponent({
       this.vehicle.uid = '';
       this.vehicle.plate = '';
       this.vehicle.datetime = '';
+      this.vehicle.location = {
+        timestamp: moment().format(),
+        latitude: 0,
+        longitude: 0,
+        accuracy: 0,
+      }
 
       this.control.loading = false;
 
@@ -175,9 +181,11 @@ export default defineComponent({
         photo: ''
       });
 
+      this.add(reservation);
+
       this.vehicle.uid = reservation.uid;
 
-      try {
+      /*try {
         this.geolocationS.getLocation().then(async location => {
           const coords = location.coords;
           this.vehicle.location = coords;
@@ -190,11 +198,16 @@ export default defineComponent({
         });
       } catch (ignored) {
         this.create();
-      }
+      }*/
+
+      this.create();
     },
     create() {
       this.$emit('create', this.vehicle);
       this.closeForm();
+    },
+    add(reservation) {
+      this.$emit('add', reservation);
     }
   },
   computed: {

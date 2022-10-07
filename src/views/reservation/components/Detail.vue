@@ -1,8 +1,8 @@
 <template>
   <ion-list>
     <ion-item-sliding v-for="reservation in reservations" :key="reservation.id" :class="{finished: reservation.end}">
-      <ion-item-options side="start" @click="setContinue(reservation)">
-        <ion-item-option color="primary">
+      <ion-item-options v-if="reservation.active" side="start">
+        <ion-item-option color="primary" @click="setContinue(reservation)">
           <icon name="parking" size="4" color="blue"></icon>
         </ion-item-option>
       </ion-item-options>
@@ -27,7 +27,7 @@
         </ion-label>
       </ion-item>
 
-      <ion-item-options side="end">
+      <ion-item-options v-if="reservation.active" side="end">
         <ion-item-option color="tertiary" @click="setEdit(reservation)">
           <icon name="edit" size="3" color="blank"></icon>
         </ion-item-option>

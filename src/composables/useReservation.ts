@@ -26,7 +26,7 @@ async function list(filters: any) {
 }
 
 async function create(data: any) {
-    const r = await get(api('reservation', 'create'), {
+    const r = await post(api('reservation', 'create'), {
         'uid': data.uid,
         'date': data.datetime,
         'vehicle-plate': data.plate,
@@ -38,7 +38,7 @@ async function create(data: any) {
         'location-lng': data.location?.longitude,
     });
 
-    await db.setReservationStatusLocal(r.uid, CONFIG.STATUS.LOCAL.CREATED);
+    if (r.success) await db.setReservationStatusLocal(r.uid, CONFIG.STATUS.LOCAL.CREATED);
 
     return r;
 }

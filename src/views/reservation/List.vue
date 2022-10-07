@@ -88,6 +88,7 @@
             :message="control.errorMessage"
             :duration="2000"
             @didDismiss="control.error = false"
+            :translucent="true"
         ></ion-toast>
       </ion-content>
     </ion-content>
@@ -186,39 +187,37 @@ export default defineComponent({
       this.reload().then();
       this.closeSelectZone();
     },
-
     async reloadPage(event: any) {
-      this.loadList();
-      this.loadCurrentCheck();
+      this.reload().then();
       event.target.complete();
     },
-    async reload() {
+    async reload(hideLoading?:boolean) {
       this.loadCurrentCheck();
-      this.loadList();
+      this.loadList(hideLoading);
     },
 
     async createReservation(data: any) {
-      this.control.loading = true;
       if (data.plate) {
-        // this.reload().then();
         data.zone = this.zone;
-        await this.reservationS.create(data);
+        const r = await this.reservationS.create(data);
+
+        if(!r.success) {
+          this.control.error = true;
+          this.control.errorMessage = `Error al crear registro de parqueo. ${r.message}`;
+        }
       } else {
         this.control.error = true;
         this.control.errorMessage = `Placa no reconocida. Hora ${data.time}`;
       }
 
-      this.control.loading = true;
-
-      this.reload().then();
+      this.reload(true).then();
     },
 
     async deleteReservation(data: any) {
-      this.control.loading = true;
+      this.activeReservations = this.activeReservations.filter((r: any) => r.id != data.id);
       await this.reservationS.remove(data);
-      this.control.loading = true;
 
-      this.reload().then();
+      this.reload(true).then();
     },
 
     loadCurrentCheck() {
@@ -250,8 +249,8 @@ export default defineComponent({
       this.control.loading = false;
     },
 
-    loadList() {
-      this.control.loading = true;
+    loadList(hideLoading?:boolean) {
+      if (!hideLoading) this.control.loading = true;
 
       if (!this.zone?.id) {
         this.activeReservations = [];

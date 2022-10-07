@@ -1,8 +1,9 @@
-import {Geolocation} from '@capacitor/geolocation';
-import {Capacitor} from "@capacitor/core";
+// import {Geolocation} from '@capacitor/geolocation';
+// import {Capacitor} from "@capacitor/core";
 
-const platformWeb = Capacitor.getPlatform() === 'web';
+// const platformWeb = Capacitor.getPlatform() === 'web';
 
+/*
 async function requestPermissions() {
     return new Promise((resolve => {
         Geolocation.requestPermissions().then((r) => {
@@ -16,9 +17,16 @@ async function requestPermissions() {
         })
     }));
 }
+*/
 
 async function getLocation() {
-    if (platformWeb) {
+    return {
+        coords: {
+            latitude: 1.0,
+            longitude: -72.0,
+        }
+    }
+    /*if (platformWeb) {
         return {
             coords: {
                 latitude: 1.0,
@@ -28,10 +36,10 @@ async function getLocation() {
     }
 
     await requestPermissions();
-    return await Geolocation.getCurrentPosition();
+    return await Geolocation.getCurrentPosition();*/
 }
 
-requestPermissions().then();
+//requestPermissions().then();
 
 export function useGeolocation() {
     return {
