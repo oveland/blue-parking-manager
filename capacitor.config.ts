@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'pcw-parking-app',
+  appId: 'com.pcwserviciosgps.parking',
+  appName: 'Parking Manager',
   webDir: 'dist',
   bundledWebRuntime: false
 };
