@@ -1,5 +1,6 @@
 {
-  "name": "pcw-parking-app",
+  "name": "blue-parking-manager",
+  "description": "Blue Parking Manager",
   "version": "3.1.0",
   "private": true,
   "scripts": {
@@ -54,6 +55,5 @@
     "jest": "^27.3.1",
     "ts-jest": "^27.0.7",
     "typescript": "^4.3.5"
-  },
-  "description": "PCW Parking Manager"
+  }
 }
